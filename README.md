@@ -5,6 +5,6 @@ A sudoku solver written in rust
 
 
 #### TODO ####
-----
+---
 
-* You know... add the solving part :P
+Redesign to be able to use [this](norvig.com/sudoku.html) solving style.
