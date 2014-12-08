@@ -45,8 +45,8 @@ impl Board {
     }
 
 
-    pub fn get(&self, x: uint, y: uint) -> Option<&Cell> {
-        Some(&self.cells[y][x])
+    pub fn get(&self, x: uint, y: uint) -> Option<Cell> {
+        Some(self.cells[y][x])
     }
 
 
