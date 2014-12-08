@@ -1,58 +1,14 @@
 use cell::*;
 
-struct Grid {
-    top: [Cell, ..3],
-    middle: [Cell, ..3],
-    bottom: [Cell, ..3]
-}
-
-
-impl Grid {
-
-    fn empty() -> Grid {
-        Grid {
-            top: [Cell::empty(), Cell::empty(), Cell::empty()],
-            middle: [Cell::empty(), Cell::empty(), Cell::empty()],
-            bottom: [Cell::empty(), Cell::empty(), Cell::empty()],
-        }
-    }
-
-
-    fn set(&mut self, x: uint, y: uint, to: Cell) {
-        match y {
-            0 => self.top[x] = to,
-            1 => self.middle[x] = to,
-            2 => self.bottom[x] = to,
-            _ => panic!("Index out of range")
-        };
-    }
-
-
-    fn get(&self, x: uint, y: uint) -> Option<&Cell> {
-        match y {
-            0 => Some(&self.top[x]),
-            1 => Some(&self.middle[x]),
-            2 => Some(&self.bottom[x]),
-            _ => None
-        }
-    }
-}
-
-
 pub struct Board {
-    top: [Grid, ..3],
-    middle: [Grid, ..3],
-    bottom: [Grid, ..3]
+    cells: [[Cell, ..9], ..9]
 }
-
 
 impl Board {
 
     pub fn empty() -> Board {
         Board {
-            top: [Grid::empty(), Grid::empty(), Grid::empty()],
-            middle: [Grid::empty(), Grid::empty(), Grid::empty()],
-            bottom: [Grid::empty(), Grid::empty(), Grid::empty()],
+            cells: [[Cell::empty(), ..9], ..9]
         }
     }
 
@@ -80,13 +36,7 @@ impl Board {
 
 
     pub fn force_set(&mut self, x: uint, y: uint, to: Cell) {
-        match y {
-            0...2 => self.top[x / 3].set(x % 3, y % 3, to),
-            3...5 => self.middle[x / 3].set(x % 3, y % 3, to),
-            6...8 => self.bottom[x / 3].set(x % 3, y % 3, to),
-            _ => panic!("Index out of range")
-        };
-
+        self.cells[y][x] = to;
     }
 
 
@@ -96,12 +46,7 @@ impl Board {
 
 
     pub fn get(&self, x: uint, y: uint) -> Option<&Cell> {
-        match y {
-            0...2 => self.top[x / 3].get(x % 3, y % 3),
-            3...5 => self.middle[x / 3].get(x % 3, y % 3),
-            6...8 => self.bottom[x / 3].get(x % 3, y % 3),
-            _ => None
-        }
+        Some(&self.cells[y][x])
     }
 
 
