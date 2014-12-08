@@ -33,13 +33,13 @@ impl fmt::Show for Number {
 
 pub enum Cell {
     Known(Number),
-    Unknown(Vec<Number>)
+    Unknown([bool, ..9])
 }
 
 impl Cell {
 
     pub fn empty() -> Cell {
-        Unknown(vec![One, Two, Three, Four, Five, Six, Seven, Eight, Nine])
+        Unknown([false, ..9])
     }
 
 
