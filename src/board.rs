@@ -13,7 +13,7 @@ impl Board {
     }
 
 
-    pub fn new(input: &str) -> Board {
+    pub fn new(input: &str) -> Option<Board> {
         let mut board = Board::empty();
         let mut x = 0;
         let mut y = 0;
@@ -24,14 +24,14 @@ impl Board {
             }
 
             match c {
-                '1'...'9' => board.set(x, y, Cell::from_char(c)),
+                '1'...'9' => board.set(x, y, Cell::from_char(c).unwrap()),
                 '.' => board.set(x, y, Cell::empty()),
-                _ => panic!("Unable to parse input")
+                _ => return None
             }
 
             x += 1;
         }
-        board
+        Some(board)
     }
 
 
@@ -46,7 +46,11 @@ impl Board {
 
 
     pub fn get(&self, x: uint, y: uint) -> Option<Cell> {
-        Some(self.cells[y][x])
+        if x > 8 || y > 8 {
+            None
+        } else {
+            Some(self.cells[y][x])
+        }
     }
 
 

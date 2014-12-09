@@ -43,19 +43,19 @@ impl Cell {
     }
 
 
-    pub fn from_char(c: char) -> Cell {
+    pub fn from_char(c: char) -> Option<Cell> {
         match c {
-            '1' => Known(One),
-            '2' => Known(Two),
-            '3' => Known(Three),
-            '4' => Known(Four),
-            '5' => Known(Five),
-            '6' => Known(Six),
-            '7' => Known(Seven),
-            '8' => Known(Eight),
-            '9' => Known(Nine),
-            '.' => Cell::empty(),
-            _ => panic!("Invalid character for cell")
+            '1' => Some(Known(One)),
+            '2' => Some(Known(Two)),
+            '3' => Some(Known(Three)),
+            '4' => Some(Known(Four)),
+            '5' => Some(Known(Five)),
+            '6' => Some(Known(Six)),
+            '7' => Some(Known(Seven)),
+            '8' => Some(Known(Eight)),
+            '9' => Some(Known(Nine)),
+            '.' => Some(Cell::empty()),
+            _ => None
         }
     }
 }
