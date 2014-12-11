@@ -39,7 +39,7 @@ pub enum Cell {
 impl Cell {
 
     pub fn empty() -> Cell {
-        Unknown([false, ..9])
+        Unknown([true, ..9])
     }
 
 
