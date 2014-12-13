@@ -4,6 +4,7 @@ use board::Board;
 
 mod board;
 mod cell;
+mod unit;
 
 
 fn main() {
