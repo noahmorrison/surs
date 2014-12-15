@@ -1,4 +1,5 @@
 use cell::*;
+use unit::Unit;
 
 pub struct Board {
     cells: [[Cell, ..9], ..9]
@@ -53,6 +54,38 @@ impl Board {
         }
     }
 
+
+    pub fn get_row(&self, y: uint) -> Unit {
+        Unit::Row(self.cells[y])
+    }
+
+
+    pub fn get_column(&self, x: uint) -> Unit {
+        let mut col = [Cell::empty(), ..9];
+
+        for (y, row) in self.cells.iter().enumerate() {
+            col[y] = row[x];
+        };
+
+        Unit::Column(col)
+    }
+
+
+    pub fn get_grid(&self, grid_number: uint) -> Unit {
+        let mut grid = [Cell::empty(), ..9];
+        let grid_x = grid_number % 3;
+        let grid_y = grid_number / 3;
+
+        let mut i = 0u;
+        for y in range(grid_y * 3, grid_y * 3 + 3) {
+            for x in range(grid_x * 3, grid_x * 3 + 3) {
+                grid[i] = self.cells[y][x];
+                i+=1;
+            }
+        }
+
+        Unit::Grid(grid)
+    }
 
     pub fn to_string(&self) -> String {
         let mut out = String::new();
