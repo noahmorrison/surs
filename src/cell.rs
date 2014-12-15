@@ -3,6 +3,7 @@ use std::fmt;
 use cell::Cell::*;
 use cell::Number::*;
 
+#[deriving(Copy, PartialEq)]
 pub enum Number {
     One,
     Two,
@@ -31,6 +32,7 @@ impl fmt::Show for Number {
     }
 }
 
+#[deriving(Copy, PartialEq)]
 pub enum Cell {
     Known(Number),
     Unknown([bool, ..9])
