@@ -67,7 +67,14 @@ impl fmt::Show for Cell {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         match self {
             &Known(x) => write!(out, "{}", x),
-            _ => write!(out, ".")
+            &Unknown(nums) => {
+                for (i, num) in nums.iter().enumerate() {
+                    if *num {
+                        try!(write!(out, "{}", i + 1));
+                    }
+                }
+                Ok(())
+            }
         }
     }
 }

@@ -1,3 +1,5 @@
+use std::fmt;
+
 use cell::*;
 use unit::Unit;
 
@@ -86,23 +88,26 @@ impl Board {
 
         Unit::Grid(grid)
     }
+}
 
-    pub fn to_string(&self) -> String {
-        let mut out = String::new();
+impl fmt::Show for Board {
+    fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         for y in range(0, 9) {
             for x in range(0, 9) {
-                out = out + self.get(x, y).unwrap().to_string();
+                let cell = self.get(x, y).unwrap().to_string();
+                try!(write!(out, "{:^9}", cell));
+
                 if x == 2 || x == 5 {
-                    out = out + "|";
+                    try!(write!(out, "|"));
                 } else {
-                    out = out + " ";
+                    try!(write!(out, " "));
                 }
             }
-            out = out + "\n";
+            try!(write!(out, "\n"));
             if y == 2 || y == 5 {
-                out = out + "-----+-----+-----\n";
+                try!(write!(out, "{0:-^59}{0:-<30}\n", "+"));
             }
         }
-        out
+        Ok(())
     }
 }
