@@ -26,10 +26,14 @@ impl Board {
                 y += 1;
             }
 
-            match c {
+            let able = match c {
                 '1'...'9' => board.set(x, y, Cell::from_char(c).unwrap()),
                 '.' => board.set(x, y, Cell::empty()),
                 _ => return None
+            };
+
+            if !able {
+                return None
             }
 
             x += 1;
@@ -43,8 +47,28 @@ impl Board {
     }
 
 
-    pub fn set(&mut self, x: uint, y: uint, to: Cell) {
-        self.force_set(x, y, to)
+    pub fn set(&mut self, x: uint, y: uint, to: Cell) -> bool {
+        let g = 3 * (y / 3) + (x / 3);
+
+        match to {
+            Cell::Known(_) => {
+                if self.get_column(x).contains(to) {
+                    false
+                } else if self.get_row(y).contains(to) {
+                    false
+                } else if self.get_grid(g).contains(to) {
+                    false
+                } else {
+                    self.force_set(x, y, to);
+                    true
+                }
+            },
+
+            Cell::Unknown(_) => {
+                self.force_set(x, y, to);
+                true
+            }
+        }
     }
 
 
