@@ -52,13 +52,10 @@ impl Board {
 
         match to {
             Cell::Known(_) => {
-                if self.get_column(x).contains(to) {
-                    false
-                } else if self.get_row(y).contains(to) {
-                    false
-                } else if self.get_grid(g).contains(to) {
-                    false
-                } else {
+                if self.get_column(x).contains(to) ||
+                   self.get_row(y).contains(to) ||
+                   self.get_grid(g).contains(to) { false }
+                else {
                     self.force_set(x, y, to);
                     true
                 }
@@ -73,10 +70,9 @@ impl Board {
 
 
     pub fn get(&self, x: uint, y: uint) -> Option<Cell> {
-        if x > 8 || y > 8 {
-            None
-        } else {
-            Some(self.cells[y][x])
+        match (x, y) {
+            (0...9, 0...9) => Some(self.cells[y][x]),
+            _ => None
         }
     }
 
@@ -121,16 +117,16 @@ impl fmt::Show for Board {
                 let cell = self.get(x, y).unwrap().to_string();
                 try!(write!(out, "{:^9}", cell));
 
-                if x == 2 || x == 5 {
-                    try!(write!(out, "|"));
-                } else {
-                    try!(write!(out, " "));
-                }
+                match x {
+                    2 | 5 => try!(write!(out, "|")),
+                    _ => try!(write!(out, " "))
+                };
             }
-            try!(write!(out, "\n"));
-            if y == 2 || y == 5 {
-                try!(write!(out, "{0:-^59}{0:-<30}\n", "+"));
-            }
+
+            match y {
+                2 | 5 => try!(write!(out, "\n{0:-^59}{0:-<30}\n", "+")),
+                _ => try!(write!(out, "\n"))
+            };
         }
         Ok(())
     }
