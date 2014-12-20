@@ -18,17 +18,7 @@ pub enum Number {
 
 impl fmt::Show for Number {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        match *self {
-            One => write!(out, "1"),
-            Two => write!(out, "2"),
-            Three => write!(out, "3"),
-            Four => write!(out, "4"),
-            Five => write!(out, "5"),
-            Six => write!(out, "6"),
-            Seven => write!(out, "7"),
-            Eight => write!(out, "8"),
-            Nine => write!(out, "9"),
-        }
+        write!(out, "{}", (*self as uint) + 1)
     }
 }
 
