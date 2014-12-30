@@ -10,6 +10,14 @@ pub enum Unit {
 }
 
 impl Unit {
+    pub fn get(&self, x: uint) -> Cell {
+        if x > 9 {
+            panic!("index out of range")
+        };
+
+        self.get_cells()[x]
+    }
+
     pub fn get_cells(&self) -> [Cell, ..9] {
         match *self {
             Unit::Column(cells) => cells,
