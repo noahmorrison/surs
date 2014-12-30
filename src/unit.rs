@@ -2,6 +2,7 @@ use std::fmt;
 
 use cell::Cell;
 
+#[deriving(Clone)]
 pub enum Unit {
     Column([Cell, ..9]),
     Row([Cell, ..9]),
