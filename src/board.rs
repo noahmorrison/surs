@@ -79,7 +79,7 @@ impl Board {
 
 
     pub fn get_row(&self, y: uint) -> Unit {
-        Unit::Row(self.cells[y])
+        Unit(self.cells[y])
     }
 
 
@@ -90,7 +90,7 @@ impl Board {
             col[y] = row[x];
         };
 
-        Unit::Column(col)
+        Unit(col)
     }
 
 
@@ -107,7 +107,7 @@ impl Board {
             }
         }
 
-        Unit::Grid(grid)
+        Unit(grid)
     }
 }
 

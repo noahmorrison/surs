@@ -3,11 +3,7 @@ use std::fmt;
 use cell::Cell;
 
 #[deriving(Clone)]
-pub enum Unit {
-    Column([Cell, ..9]),
-    Row([Cell, ..9]),
-    Grid([Cell, ..9])
-}
+pub struct Unit(pub [Cell, ..9]);
 
 impl Unit {
     pub fn get(&self, x: uint) -> Cell {
@@ -20,9 +16,7 @@ impl Unit {
 
     pub fn get_cells(&self) -> [Cell, ..9] {
         match *self {
-            Unit::Column(cells) => cells,
-            Unit::Row(cells) => cells,
-            Unit::Grid(cells) => cells
+            Unit(cells) => cells
         }
     }
 
