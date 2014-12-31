@@ -113,6 +113,47 @@ impl Board {
 
         Unit(grid)
     }
+
+
+    pub fn set_row(&mut self, y: uint, row: Unit) -> bool {
+        for (x, cell) in row.get_cells().iter().enumerate() {
+            if !self.set(x, y, *cell) {
+                return false
+            };
+        };
+
+        true
+    }
+
+
+    pub fn set_column(&mut self, x: uint, column: Unit) -> bool {
+        for (y, cell) in column.get_cells().iter().enumerate() {
+            if !self.set(x, y, *cell) {
+                return false
+            };
+        };
+
+        true
+    }
+
+
+    pub fn set_grid(&mut self, grid_number: uint, grid: Unit) -> bool {
+        let grid_x = grid_number % 3;
+        let grid_y = grid_number / 3;
+
+        let mut i = 0u;
+        for y in range(grid_y * 3, grid_y * 3 + 3) {
+            for x in range(grid_x * 3, grid_x * 3 + 3) {
+                if !self.set(x, y, grid.get(i)) {
+                    return false
+                };
+
+                i+=1;
+            };
+        };
+
+        true
+    }
 }
 
 impl fmt::Show for Board {
