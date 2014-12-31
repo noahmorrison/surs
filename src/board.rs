@@ -49,6 +49,10 @@ impl Board {
 
 
     pub fn set(&mut self, x: uint, y: uint, to: Cell) -> bool {
+        if x > 8 || y > 8 {
+            return false
+        };
+
         let g = 3 * (y / 3) + (x / 3);
 
         match to {
