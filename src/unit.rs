@@ -1,6 +1,7 @@
 use std::fmt;
 
 use cell::Cell;
+use cell::Number;
 
 #[deriving(Clone)]
 pub struct Unit(pub [Cell, ..9]);
@@ -48,6 +49,18 @@ impl Unit {
 
         false
 
+    }
+
+    pub fn without(&self, num: Number) -> Unit {
+        let mut cells = self.get_cells();
+
+        for (i, other) in self.get_cells().iter().enumerate() {
+            if other.contains(num) {
+                cells[i] = other.without(num);
+            }
+        }
+
+        Unit(cells)
     }
 }
 
