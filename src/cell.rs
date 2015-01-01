@@ -51,6 +51,14 @@ impl Cell {
         }
     }
 
+    pub fn contains(&self, num: Number) -> bool {
+        match *self {
+            Known(n) => n == num,
+
+            Unknown(nums) => nums[num as uint]
+        }
+    }
+
     pub fn without(&self, num: Number) -> Cell {
         match *self {
             Known(n) => {
