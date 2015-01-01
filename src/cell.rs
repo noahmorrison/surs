@@ -50,6 +50,24 @@ impl Cell {
             _ => None
         }
     }
+
+    pub fn without(&self, num: Number) -> Cell {
+        match *self {
+            Known(n) => {
+                if n == num {
+                    panic!("Cannot remove {} because I am {}.", num, n);
+                };
+
+                Known(n)
+            },
+
+            Unknown(nums) => {
+                let mut new_nums = nums.clone();
+                new_nums[num as uint] = false;
+                Unknown(new_nums)
+            }
+        }
+    }
 }
 
 
