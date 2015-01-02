@@ -52,10 +52,14 @@ impl Unit {
     }
 
     pub fn without(&self, num: Number) -> Unit {
+        self.without_skip(num, -1)
+    }
+
+    pub fn without_skip(&self, num: Number, skip: uint) -> Unit {
         let mut cells = self.get_cells();
 
         for (i, other) in self.get_cells().iter().enumerate() {
-            if other.contains(num) {
+            if i != skip && other.contains(num) {
                 cells[i] = other.without(num);
             }
         }
