@@ -3,7 +3,7 @@ use std::fmt;
 use cell::*;
 use unit::Unit;
 
-#[deriving(Clone)]
+#[deriving(Clone, PartialEq)]
 pub struct Board {
     cells: [[Cell, ..9], ..9]
 }
