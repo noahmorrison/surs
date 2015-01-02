@@ -56,10 +56,11 @@ impl Board {
         let g = 3 * (y / 3) + (x / 3);
 
         match to {
-            Cell::Known(_) => {
-                if self.get_column(x).contains(to) ||
-                   self.get_row(y).contains(to) ||
-                   self.get_grid(g).contains(to) { false }
+            Cell::Known(cell) => {
+                if to != self.get(x, y).unwrap() &&
+                   (self.get_column(x).contains(to) ||
+                    self.get_row(y).contains(to) ||
+                    self.get_grid(g).contains(to)) { false }
                 else {
                     self.force_set(x, y, to);
                     true
