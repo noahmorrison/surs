@@ -3,16 +3,16 @@ use std::fmt;
 use cell::*;
 use unit::Unit;
 
-#[deriving(Clone, PartialEq)]
+#[derive(Clone, PartialEq)]
 pub struct Board {
-    cells: [[Cell, ..9], ..9]
+    cells: [[Cell; 9]; 9]
 }
 
 impl Board {
 
     pub fn empty() -> Board {
         Board {
-            cells: [[Cell::empty(), ..9], ..9]
+            cells: [[Cell::empty(); 9]; 9]
         }
     }
 
@@ -89,7 +89,7 @@ impl Board {
 
 
     pub fn get_column(&self, x: uint) -> Unit {
-        let mut col = [Cell::empty(), ..9];
+        let mut col = [Cell::empty(); 9];
 
         for (y, row) in self.cells.iter().enumerate() {
             col[y] = row[x];
@@ -100,7 +100,7 @@ impl Board {
 
 
     pub fn get_grid(&self, grid_number: uint) -> Unit {
-        let mut grid = [Cell::empty(), ..9];
+        let mut grid = [Cell::empty(); 9];
         let grid_x = grid_number % 3;
         let grid_y = grid_number / 3;
 
@@ -161,8 +161,8 @@ impl fmt::Show for Board {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         for y in range(0, 9) {
             for x in range(0, 9) {
-                let cell = self.get(x, y).unwrap().to_string();
-                try!(write!(out, "{:^9}", cell));
+                let cell = self.get(x, y).unwrap();
+                try!(write!(out, "{:^9?}", cell));
 
                 match x {
                     2 | 5 => try!(write!(out, "|")),

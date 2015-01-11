@@ -4,11 +4,11 @@ use cell::Cell;
 use cell::Number;
 
 #[deriving(Clone)]
-pub struct Unit(pub [Cell, ..9]);
+pub struct Unit(pub [Cell; 9]);
 
 impl Unit {
     pub fn new(input: &str) -> Option<Unit> {
-        let mut cells = [Cell::empty(), ..9];
+        let mut cells = [Cell::empty(); 9];
 
         let mut x = 0;
         for c in input.chars() {
@@ -32,7 +32,7 @@ impl Unit {
         self.get_cells()[x]
     }
 
-    pub fn get_cells(&self) -> [Cell, ..9] {
+    pub fn get_cells(&self) -> [Cell; 9] {
         match *self {
             Unit(cells) => cells
         }
@@ -71,6 +71,6 @@ impl Unit {
 
 impl fmt::Show for Unit {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        write!(out, "{}", self.get_cells())
+        write!(out, "{:?}", self.get_cells())
     }
 }

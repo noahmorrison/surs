@@ -3,7 +3,7 @@ use std::fmt;
 use cell::Cell::*;
 use cell::Number::*;
 
-#[deriving(Copy, PartialEq)]
+#[derive(Copy, PartialEq)]
 pub enum Number {
     One,
     Two,
@@ -22,16 +22,16 @@ impl fmt::Show for Number {
     }
 }
 
-#[deriving(Copy, PartialEq)]
+#[derive(Copy, PartialEq)]
 pub enum Cell {
     Known(Number),
-    Unknown([bool, ..9])
+    Unknown([bool; 9])
 }
 
 impl Cell {
 
     pub fn empty() -> Cell {
-        Unknown([true, ..9])
+        Unknown([true; 9])
     }
 
 
@@ -63,7 +63,7 @@ impl Cell {
         match *self {
             Known(n) => {
                 if n == num {
-                    panic!("Cannot remove {} because I am {}.", num, n);
+                    panic!("Cannot remove {:?} because I am {:?}.", num, n);
                 };
 
                 Known(n)
@@ -82,7 +82,7 @@ impl Cell {
 impl fmt::Show for Cell {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            &Known(x) => write!(out, "{}", x),
+            &Known(x) => write!(out, "{:?}", x),
             &Unknown(nums) => {
                 for (i, num) in nums.iter().enumerate() {
                     if *num {
