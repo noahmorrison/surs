@@ -24,12 +24,12 @@ impl Unit {
         Some(Unit(cells))
     }
 
-    pub fn get(&self, x: uint) -> Cell {
+    pub fn get(&self, x: u8) -> Cell {
         if x > 9 {
             panic!("index out of range")
         };
 
-        self.get_cells()[x]
+        self.get_cells()[x as usize]
     }
 
     pub fn get_cells(&self) -> [Cell; 9] {
@@ -55,11 +55,11 @@ impl Unit {
         self.without_skip(num, -1)
     }
 
-    pub fn without_skip(&self, num: Number, skip: uint) -> Unit {
+    pub fn without_skip(&self, num: Number, skip: u8) -> Unit {
         let mut cells = self.get_cells();
 
         for (i, other) in self.get_cells().iter().enumerate() {
-            if i != skip && other.contains(num) {
+            if (i as u8) != skip && other.contains(num) {
                 cells[i] = other.without(num);
             }
         }

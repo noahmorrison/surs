@@ -18,7 +18,7 @@ pub enum Number {
 
 impl fmt::Show for Number {
     fn fmt(&self, out: &mut fmt::Formatter) -> fmt::Result {
-        write!(out, "{}", (*self as uint) + 1)
+        write!(out, "{}", (*self as u8) + 1)
     }
 }
 
@@ -55,7 +55,7 @@ impl Cell {
         match *self {
             Known(n) => n == num,
 
-            Unknown(nums) => nums[num as uint]
+            Unknown(nums) => nums[num as usize]
         }
     }
 
@@ -71,7 +71,7 @@ impl Cell {
 
             Unknown(nums) => {
                 let mut new_nums = nums.clone();
-                new_nums[num as uint] = false;
+                new_nums[num as usize] = false;
                 Unknown(new_nums)
             }
         }

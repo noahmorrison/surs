@@ -43,12 +43,12 @@ impl Board {
     }
 
 
-    pub fn force_set(&mut self, x: uint, y: uint, to: Cell) {
-        self.cells[y][x] = to;
+    pub fn force_set(&mut self, x: u8, y: u8, to: Cell) {
+        self.cells[y as usize][x as usize] = to;
     }
 
 
-    pub fn set(&mut self, x: uint, y: uint, to: Cell) -> bool {
+    pub fn set(&mut self, x: u8, y: u8, to: Cell) -> bool {
         if x > 8 || y > 8 {
             return false
         };
@@ -75,31 +75,31 @@ impl Board {
     }
 
 
-    pub fn get(&self, x: uint, y: uint) -> Option<Cell> {
+    pub fn get(&self, x: u8, y: u8) -> Option<Cell> {
         match (x, y) {
-            (0...9, 0...9) => Some(self.cells[y][x]),
+            (0...9, 0...9) => Some(self.cells[y as usize][x as usize]),
             _ => None
         }
     }
 
 
-    pub fn get_row(&self, y: uint) -> Unit {
-        Unit(self.cells[y])
+    pub fn get_row(&self, y: u8) -> Unit {
+        Unit(self.cells[y as usize])
     }
 
 
-    pub fn get_column(&self, x: uint) -> Unit {
+    pub fn get_column(&self, x: u8) -> Unit {
         let mut col = [Cell::empty(); 9];
 
         for (y, row) in self.cells.iter().enumerate() {
-            col[y] = row[x];
+            col[y] = row[x as usize];
         };
 
         Unit(col)
     }
 
 
-    pub fn get_grid(&self, grid_number: uint) -> Unit {
+    pub fn get_grid(&self, grid_number: u8) -> Unit {
         let mut grid = [Cell::empty(); 9];
         let grid_x = grid_number % 3;
         let grid_y = grid_number / 3;
@@ -107,7 +107,7 @@ impl Board {
         let mut i = 0u;
         for y in range(grid_y * 3, grid_y * 3 + 3) {
             for x in range(grid_x * 3, grid_x * 3 + 3) {
-                grid[i] = self.cells[y][x];
+                grid[i] = self.cells[y as usize][x as usize];
                 i+=1;
             }
         }
@@ -116,9 +116,9 @@ impl Board {
     }
 
 
-    pub fn set_row(&mut self, y: uint, row: Unit) -> bool {
+    pub fn set_row(&mut self, y: u8, row: Unit) -> bool {
         for (x, cell) in row.get_cells().iter().enumerate() {
-            if !self.set(x, y, *cell) {
+            if !self.set(x as u8, y as u8, *cell) {
                 return false
             };
         };
@@ -127,9 +127,9 @@ impl Board {
     }
 
 
-    pub fn set_column(&mut self, x: uint, column: Unit) -> bool {
+    pub fn set_column(&mut self, x: u8, column: Unit) -> bool {
         for (y, cell) in column.get_cells().iter().enumerate() {
-            if !self.set(x, y, *cell) {
+            if !self.set(x as u8, y as u8, *cell) {
                 return false
             };
         };
@@ -138,14 +138,14 @@ impl Board {
     }
 
 
-    pub fn set_grid(&mut self, grid_number: uint, grid: Unit) -> bool {
+    pub fn set_grid(&mut self, grid_number: u8, grid: Unit) -> bool {
         let grid_x = grid_number % 3;
         let grid_y = grid_number / 3;
 
-        let mut i = 0u;
+        let mut i = 0u8;
         for y in range(grid_y * 3, grid_y * 3 + 3) {
             for x in range(grid_x * 3, grid_x * 3 + 3) {
-                if !self.set(x, y, grid.get(i)) {
+                if !self.set(x as u8, y as u8, grid.get(i)) {
                     return false
                 };
 
